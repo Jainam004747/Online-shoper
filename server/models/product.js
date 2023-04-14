@@ -44,7 +44,7 @@ const productSchema = new  mongoose.Schema({
                 'Accessories',
                 'Headphones',
                 'Food',
-                "Books",
+                'Books',
                 'Clothes/Shoes',
                 'Beauty/Health',
                 'Sports',
@@ -54,9 +54,46 @@ const productSchema = new  mongoose.Schema({
             message: 'Please select correct category for product'
         }
     },
-    seller: {
+    brandSeller: {
         type: String,
-        required: [true, 'Please enter product seller']
+        required: [true, 'Please enter product seller/ brand']
+    },
+    size: {
+        type: String,
+        enum: [
+            'OneSize', 
+            //cloaths size
+            'XS',
+            'S',
+            'M',
+            'L',
+            'XL',
+            'XXL',
+            'XXXL',
+            '0-6M',
+            '6-12M',
+            '1-2Y',
+            '2-3Y',
+            '3-4Y',
+            '4-5Y',
+            '5-6Y',
+            '6-7Y',
+            '7-8Y',
+            '8-9Y',
+            '9-10Y',
+            '10-11Y',
+            '11-12Y',
+            '12-13Y',
+            '13-14Y',
+            //Shoes size
+            'UK6',
+            'UK7',
+            'UK8',
+            'UK9',
+            'UK10',
+            'UK11'  
+        ],
+        default: 'OneSize'
     },
     stock: {
         type: Number,

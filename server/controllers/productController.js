@@ -94,7 +94,7 @@ exports.deleteProduct = catchAsyncErrors ( async (req,res,next) => {
 exports.getMerchantProducts = catchAsyncErrors ( async (req,res,next) => {
     const resPerPage = 4;
     const filter = {
-        'user': req.user.id
+        'Role': 'Merchant'
     };
     const apiFeatures = new APIFeatures(Product.find(filter), req.query) 
                         .search()
