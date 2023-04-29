@@ -32,7 +32,6 @@ const productCount = await Product.countDocuments();
     const products = await apiFeatures.query;
     res.status(200).json({
         success: true,
-        count: products.length,
         productCount,
         products
     }) 
