@@ -5,6 +5,7 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const sendToken = require('../utils/jwtTokens');
 const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
+const cloudinary = require('cloudinary');
 
 // user signIn request => /api/v1/signIN
 exports.signIN = catchAsyncErrors ( async (req, res, next) => {
@@ -33,6 +34,11 @@ exports.signIN = catchAsyncErrors ( async (req, res, next) => {
 
 // user signUp request => /api/v1/signUp
 exports.signUP = catchAsyncErrors ( async (req, res, next) => {
+    const result = await cloudinary.v2.uploader.upload(req.body.ProfilePicture, {
+        folder: 'ProfilePictures',
+        width: 150,
+        crop: "scale"
+    })
 
     const { firstName, lastName , UserName, Email, Password} = req.body;
     const user = await User.create({
@@ -42,8 +48,8 @@ exports.signUP = catchAsyncErrors ( async (req, res, next) => {
         Email,
         Password,
         ProfilePicture: {
-            Public_id: 'avtar/ahhan',
-            url: 'something url'
+            Public_id: result.public_id,
+            url: result.secure_url
         }
     });
 
@@ -90,6 +96,26 @@ exports.updateProfile = catchAsyncErrors( async (req, res, next) => {
         UserName : req.body.UserName,
         Email : req.body.Email
     }
+
+    // Update profilrpicture
+    if(req.body.ProfilePicture !== ''){
+
+        const user = await User.findById(req.user.id);
+
+        const image_id = user.ProfilePicture.Public_id; 
+        const res = await cloudinary.v2.uploader.destroy(image_id);
+
+        const result = await cloudinary.v2.uploader.upload(req.body.ProfilePicture, {
+            folder: 'ProfilePictures',
+            width: 150,
+            crop: "scale"
+        })
+
+        newUserData.ProfilePicture = {
+            Public_id: result.public_id,
+            url: result.secure_url
+        }
+    }
     const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,
         runValidators: true
@@ -117,7 +143,7 @@ exports.logout = catchAsyncErrors ( async (req, res, next) => {
 // Forgot password => /api/v1/password/forgot
 exports.forgotPassword = catchAsyncErrors ( async (req, res, next) => { 
 
-    const user = await User.findOne({ Email: req.body.email});
+    const user = await User.findOne({ Email: req.body.Email});
 
     if(!user){
         return next(new ErrorHandler('User not found with this email', 404));

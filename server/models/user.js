@@ -50,8 +50,7 @@ const userSchema = new  mongoose.Schema({
     ContactNumber: {
         type: String
     },
-    ProfilePicture: [ 
-        {
+    ProfilePicture: {
             Public_id: {
                 type: String,
                 required: true
@@ -60,8 +59,7 @@ const userSchema = new  mongoose.Schema({
                 type: String,
                 required: true
             }
-        }
-    ],
+    },
     createdAt: {
         type: Date,
         default: Date.now

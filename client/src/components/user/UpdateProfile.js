@@ -1,0 +1,169 @@
+import React, { Fragment, useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
+
+import MetaData from '../layouts/MetaData'
+
+import { useAlert } from 'react-alert'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateProfile, loadUser, clearErrors } from '../../actions/userActions'
+import { UPDATE_PROFILE_RESET } from '../../constants/userConstants'
+
+const UpdateProfile = () => {
+
+    const [firstName, setfirstName] = useState('');
+    const [lastName, setlastName] = useState('');
+    const [UserName, setUserName] = useState('');
+    const [Email, setEmail] = useState('');
+
+    const [ProfilePicture, setProfilePicture] = useState('');
+    const [ProfilePicturePreview, setProfilePicturePreview] = useState('/images/default_avatar.jpg');
+
+    const alert = useAlert();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const { user } = useSelector(state => state.auth);
+    const { error, isUpdated, loading } = useSelector(state => state.user)
+
+    useEffect(() => {
+        if (user) {
+            setfirstName(user.firstName);
+            setlastName(user.lastName);
+            setUserName(user.UserName);
+            setEmail(user.Email);
+            setProfilePicturePreview(user.ProfilePicture.url);
+        }
+        if (error) {
+            alert.error(error);
+            dispatch(clearErrors);
+        }
+        if (isUpdated) {
+            alert.success('User updated successfully');
+            dispatch(loadUser());
+
+            navigate(`/me`);
+            dispatch({
+                type: UPDATE_PROFILE_RESET
+            });
+        }
+
+    }, [dispatch, alert, error, navigate, isUpdated]);
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.set('firstName', firstName);
+        formData.set('lastName', lastName);
+        formData.set('UserName', UserName);
+        formData.set('Email', Email);
+        formData.set('ProfilePicture', ProfilePicture);
+
+        dispatch(updateProfile(formData));
+    }
+
+    const onChange = e => {
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setProfilePicturePreview(reader.result);
+                setProfilePicture(reader.result);
+            }
+        }
+
+        reader.readAsDataURL(e.target.files[0]);
+
+    }
+    return (
+        <Fragment>
+            <MetaData title={'Update Profile'} />
+
+            <div className="row wrapper">
+                <div className="col-10 col-lg-5">
+                    <form className="shadow-lg" onSubmit={submitHandler} encType='multipart/form-data'>
+                        <h1 className="mt-2 mb-5">Update Profile</h1>
+
+                        <div className="form-group">
+                            <label htmlFor="email_field">FirstName</label>
+                            <input type="name" 
+                            id="name_field" 
+                            className="form-control" 
+                            name='firstName'
+                            value={firstName} 
+                            onChange={(e) => setfirstName(e.target.value)}
+                        />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="email_field">LastName</label>
+                            <input type="name" 
+                            id="name_field" 
+                            className="form-control" 
+                            name='lastName'
+                            value={lastName} 
+                            onChange={(e) => setlastName(e.target.value)}
+                        />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="email_field">UserName</label>
+                            <input type="name" 
+                            id="name_field" 
+                            className="form-control" 
+                            name='UserName'
+                            value={UserName} 
+                            onChange={(e) => setUserName(e.target.value)}
+                        />
+                        </div>
+                        
+
+                        <div className="form-group">
+                            <label htmlFor="email_field">Email</label>
+                            <input
+                                type="email"
+                                id="email_field"
+                                className="form-control"
+                                name='Email'
+                                value={Email} 
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+
+                        <div className='form-group'>
+                            <label htmlFor='avatar_upload'>Avatar</label>
+                            <div className='d-flex align-items-center'>
+                                <div>
+                                    <figure className='avatar mr-3 item-rtl'>
+                                        <img
+                                            src={ProfilePicturePreview}
+                                            className='rounded-circle'
+                                            alt='ProfilePicturePreview'
+                                        />
+                                    </figure>
+                                </div>
+                                <div className='custom-file'>
+                                    <input
+                                        type='file'
+                                        name='avatar'
+                                        className='custom-file-input'
+                                        id='customFile'
+                                        accept='image/*'
+                                        onChange={onChange}
+                                    />
+                                    <label className='custom-file-label' htmlFor='customFile'>
+                                        Choose Avatar
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" className="btn update-btn btn-block mt-4 mb-3" disabled={loading ? true : false} >Update</button>
+                    </form>
+                </div>
+            </div>
+        </Fragment>
+    )
+}
+
+export default UpdateProfile
