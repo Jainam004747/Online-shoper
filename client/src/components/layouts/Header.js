@@ -13,6 +13,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const { user, loading } = useSelector(state => state.auth)
+  const { cartItems } = useSelector(state => state.cart)
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -42,53 +43,53 @@ const Header = () => {
               Cart
             </span>
             <span className="ml-1" id="cart_count">
-              2
+              {cartItems.length}
             </span>
           </Link>
 
           {user ? (
             <div className="ml-4 dropdown d-inline">
               <Link to="#!" className="btn dropdown-toggle text-white mr-4"
-                            type="button"
-                            id="dropDownMenuButton" 
-                            data-toggle= "dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
+                type="button"
+                id="dropDownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
               >
                 <figure className="avatar avatar-nav">
-                      <img 
-                      src={user.ProfilePicture &&  user.ProfilePicture.url} 
-                      alt={user && user.UserName}
-                      className="rounded-circle"
-                      />
-                </figure> 
+                  <img
+                    src={user.ProfilePicture && user.ProfilePicture.url}
+                    alt={user && user.UserName}
+                    className="rounded-circle"
+                  />
+                </figure>
                 <span>{user && user.UserName}</span>
               </Link>
 
               <div className="dropdown-menu" aria-labelledby="dropDownMenuButton">
 
-                {user && user.Role !== 'Admin' ? (
+                {user && user.Role === 'Admin' && (
+                  <Link className="dropdown-item text-info" to="/dashboard">
+                    Dashboard
+                  </Link>
+                )}
                   <Link className="dropdown-item text-info" to="/orders/me">
                     Orders
                   </Link>
-                ):<Link className="dropdown-item text-info" to="/dashboard">
-                      Dashboard
-                  </Link>}
-                
-                  <Link className="dropdown-item text-info" to="/me">
-                      Profile
-                  </Link>
+              <Link className="dropdown-item text-info" to="/me">
+                Profile
+              </Link>
 
-                <Link className="dropdown-item text-danger" to="/" onClick={logoutHandler}>
-                  Logout
-                </Link>
-              </div>
+              <Link className="dropdown-item text-danger" to="/" onClick={logoutHandler}>
+                Logout
+              </Link>
             </div>
-          ): !loading && <Link to="/login" className="btn ml-4" id="login_btn">Login</Link>
+            </div>
+        ): !loading && <Link to="/login" className="btn ml-4" id="login_btn">Login</Link>
           }
-        </div>
-      </nav>
-    </Fragment>
+      </div>
+    </nav>
+    </Fragment >
   );
 };
 

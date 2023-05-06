@@ -10,7 +10,8 @@ const {
     getMerchantProducts,
     createProductReview,
     getProductReviews,
-    deleteProductReviews
+    deleteProductReviews,
+    getAdminProducts
 } = require('../controllers/productController')
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
@@ -18,6 +19,7 @@ const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 router.route('/products').get(getProducts);
 router.route('/product/:id').get(getSingleProduct);
 
+router.route('/admin/products').get(isAuthenticatedUser,authorizeRoles('Admin'),getAdminProducts);
 router.route('/admin/product/new').post(isAuthenticatedUser, authorizeRoles('Admin'), newProduct);
 router.route('/admin/product/:id').put(isAuthenticatedUser, authorizeRoles('Admin'), updateProduct).delete(isAuthenticatedUser, deleteProduct);
 

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate , useLocation} from "react-router-dom";
 
 import Loader from "../layouts/Loader";
 import MetaData from "../layouts/MetaData";
@@ -17,13 +17,16 @@ const Login = () => {
     const alert = useAlert();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
 
     const { isAuthenticated, error, loading } = useSelector(state => state.auth);
 
+    const redirect = location.search ? location.search.split('=')[1] : '';
+    console.log(redirect);
     useEffect(() => {
         if (isAuthenticated) {
-            navigate(`/`);
+            navigate(`/${redirect}`);
         }
         if (error) {
             alert.error(error);
