@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 
 const ConfirmOrder = () => {
 
-    const { cartItems, shippingInfo } = useSelector(state => state.cart)
+    const { cartItems, shippingInformation } = useSelector(state => state.cart)
     const { user } = useSelector(state => state.auth)
     const navigate = useNavigate();
 
@@ -42,8 +42,8 @@ const ConfirmOrder = () => {
 
                     <h4 className="mb-3">Shipping Info</h4>
                     <p><b>Name:</b> {user && user.firstName} {user && user.lastName}</p>
-                    <p><b>Phone:</b> {shippingInfo.phoneNo}</p>
-                    <p className="mb-4"><b>Address:</b> {`${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.postalCode}, ${shippingInfo.country}`}</p>
+                    <p><b>Phone:</b> {shippingInformation.phoneNo}</p>
+                    <p className="mb-4"><b>Address:</b> {`${shippingInformation.address}, ${shippingInformation.city}, ${shippingInformation.postalCode}, ${shippingInformation.country}`}</p>
 
                     <hr />
                     <h4 className="mt-4">Your Cart Items:</h4>

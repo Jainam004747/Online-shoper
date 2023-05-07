@@ -13,13 +13,12 @@ const Shipping = () => {
     const countriesList = Object.values(countries)
     const navigate = useNavigate();
 
-    const { shippingInfo } = useSelector(state => state.cart)
-
-    const [address, setAddress] = useState(shippingInfo.address)
-    const [city, setCity] = useState(shippingInfo.city)
-    const [postalCode, setPostalCode] = useState(shippingInfo.postalCode)
-    const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo)
-    const [country, setCountry] = useState(shippingInfo.country)
+    const { shippingInformation } = useSelector(state => state.cart)
+    const [address, setAddress] = useState(shippingInformation.address)
+    const [city, setCity] = useState(shippingInformation.city)
+    const [postalCode, setPostalCode] = useState(shippingInformation.postalCode)
+    const [phoneNo, setPhoneNo] = useState(shippingInformation.phoneNo)
+    const [country, setCountry] = useState(shippingInformation.country)
 
     const dispatch = useDispatch();
 

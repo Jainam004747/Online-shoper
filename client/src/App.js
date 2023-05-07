@@ -31,6 +31,11 @@ import Dashboard from "./components/admin/Dashboard";
 import ProductList from "./components/admin/ProductList";
 import NewProduct from "./components/admin/NewProduct";
 import UpdateProduct from "./components/admin/UpdateProduct";
+import OrdersList from "./components/admin/OrdersList";
+import ProcessOrder from "./components/admin/ProcessOrder";
+import UsersList from "./components/admin/UsersList";
+import UpdateUser from "./components/admin/UpdateUser";
+import ProductReviews from "./components/admin/ProductReviews";
 
 import ProtectedRoute from './components/route/ProtectedRoute';
 import { loadUser } from './actions/userActions';
@@ -92,6 +97,13 @@ function App() {
         <Route path="/admin/products" isAdmin={true} element={ <ProtectedRoute><ProductList /></ProtectedRoute>} exact/>
         <Route path="/admin/product" isAdmin={true} element={ <ProtectedRoute><NewProduct /></ProtectedRoute>} exact/>
         <Route path="/admin/product/:id" isAdmin={true} element={ <ProtectedRoute><UpdateProduct /></ProtectedRoute> } exact />
+        <Route path="/admin/orders" isAdmin={true} element={ <ProtectedRoute><OrdersList/></ProtectedRoute>} exact/>
+        <Route path="/admin/order/:id" isAdmin={true} element={ <ProtectedRoute><ProcessOrder/></ProtectedRoute>} exact/>
+        <Route path="/admin/users" isAdmin={true} element={ <ProtectedRoute><UsersList/></ProtectedRoute>} exact/>
+        <Route path="/admin/user/:id" isAdmin={true} element={ <ProtectedRoute><UpdateUser/></ProtectedRoute>} exact/>
+        <Route path="/admin/reviews" isAdmin={true} element={ <ProtectedRoute><ProductReviews/></ProtectedRoute>} exact/>
+
+
         </Routes>
         
 

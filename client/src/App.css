@@ -29,6 +29,7 @@ body {
 nav {
   background-color: #232f3e;
   padding: 1rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 #search_btn {
@@ -115,8 +116,8 @@ nav {
 
 /* Footer */
 footer {
-  margin-top: 8rem;
-  color: grey;
+  background-color: #232f3e;
+  color : white;
   bottom: 0;
   width: 100%;
 }
@@ -614,3 +615,101 @@ ul.CTAs a {
   font-size: 0.8rem;
   color: grey;
 }
+/* styles.css */
+
+/* Table Container */
+table {
+  font-family: Arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* Table Header */
+thead th {
+  background-color: #232f3e;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 12px;
+  text-align: left;
+}
+
+/* Table Body */
+tbody td {
+  border-bottom: 1px solid #dddddd;
+  padding: 12px;
+}
+
+/* Table Rows */
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Table Hover */
+tbody tr:hover {
+  background-color: #e5e5e5;
+}
+
+/* Pagination */
+.mdb-datatable .pagination {
+  margin-top: 20px;
+}
+
+/* Pagination Links */
+.mdb-datatable .pagination .page-item .page-link {
+  color: #232f3e;
+  border-color: #232f3e;
+}
+
+.mdb-datatable .pagination .page-item.active .page-link {
+  background-color: #232f3e;
+  border-color: #232f3e;
+  color: #ffffff;
+}
+
+.mdb-datatable .pagination .page-item.disabled .page-link {
+  color: #999999;
+}
+
+/* Search Input */
+.mdb-datatable .dataTables_wrapper .dataTables_filter input[type="search"] {
+  width: 200px;
+  padding: 6px;
+  border: 1px solid #999999;
+  border-radius: 4px;
+}
+
+/* Entries Dropdown */
+.mdb-datatable .dataTables_wrapper .dataTables_length label {
+  margin-bottom: 0;
+}
+
+.mdb-datatable .dataTables_wrapper .dataTables_length select {
+  width: auto;
+}
+
+/* Responsive Table */
+.mdb-datatable .table-responsive {
+  overflow-x: auto;
+}
+
+/* Custom Colors */
+/* Add more custom colors as needed */
+
+/* Blue Color */
+.mdb-datatable .blue {
+  background-color: #4d87c7;
+  color: #ffffff;
+}
+
+/* Green Color */
+.mdb-datatable .green {
+  background-color: #61a54e;
+  color: #ffffff;
+}
+
+/* Red Color */
+.mdb-datatable .red {
+  background-color: #c25b5b;
+  color: #ffffff;
+}
+
