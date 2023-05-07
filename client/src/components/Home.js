@@ -19,7 +19,7 @@ const Home = () => {
 
   const params = useParams();
   const [currentPage, setCurrentPage] = useState(1);
-  const [Price, setPrice] = useState([1,100000]);
+  const [Price, setPrice] = useState([1,1000000]);
   const [category, setCategory] = useState("");
   const [rating, setRating] = useState(0);
 
@@ -69,7 +69,7 @@ const Home = () => {
         <Fragment>
           <MetaData title={"Buy Best Products Online"} />
 
-          <h2 id="products_heading">Latest Products</h2>
+          <h1 id="products_heading">Latest Products</h1>
 
           <section id="products" className="container mt-5">
             <div className="row">
@@ -82,17 +82,14 @@ const Home = () => {
                           <Range
                               marks={{
                                 1 : '₹1',
-                                100: '₹100',
                                 500:'₹500',
-                                1000:'₹1000',
-                                10000:'₹10000',
-                                100000 : '₹100000'
+                                1000 : '₹1000'
                               }}
                               
                               min = {1}
-                              max={100000}
+                              max={1000}
                               step={20}
-                              defaultValue={[1,100000]}
+                              defaultValue={[1,10000000]}
                               tipFormatter = {value => `₹${value}`}
                               tipProps={{
                                 placement: "top",

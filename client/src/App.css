@@ -713,3 +713,18 @@ tbody tr:hover {
   color: #ffffff;
 }
 
+
+/* Custom Track Styles */
+.rc-slider-track {
+  background-color: #232f3e; /* Set the desired track color */
+  height: 4px; /* Set the height of the track */
+}
+
+/* Custom Handle Styles */
+.rc-slider-handle {
+  border-color: #232f3e; /* Set the desired handle border color */
+  background-color: #232f3e; /* Set the desired handle background color */
+  height: 20px; /* Set the height of the handle */
+  width: 20px; /* Set the width of the handle */
+  margin-top: -8px; /* Adjust the handle's top margin */
+}
